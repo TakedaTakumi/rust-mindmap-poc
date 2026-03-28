@@ -52,7 +52,6 @@
   },
 
   "postCreateCommand": "if [ -f frontend/package.json ]; then cd frontend && pnpm install; fi",
-  "postStartCommand": "rustup update stable 2>/dev/null || true",
 
   "remoteUser": "vscode",
   "shutdownAction": "stopCompose"
