@@ -1,0 +1,18 @@
+{
+	"language": "en",
+	"words": ["rustup"],
+	"ignoreWords": [],
+	"ignorePaths": [
+		"vscode-extension",
+		".git/objects",
+		".vscode",
+		".vscode-insiders",
+		"node_modules",
+		".pnpm-store",
+		"pnpm-lock.yaml",
+		"doc/*",
+		"dist/*",
+		"coverage/*",
+		"generated/*"
+	]
+}

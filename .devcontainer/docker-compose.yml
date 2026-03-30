@@ -1,0 +1,50 @@
+# MindMap POC — devcontainer 用 Compose
+# devcontainer.json から参照される。直接 docker compose で使うものではない。
+# ルートの Dockerfile の dev ステージを使用する。
+
+services:
+  devcontainer:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      target: dev
+      args:
+        NODE_MAJOR: "22"
+        USERNAME: vscode
+        USER_UID: "1000"
+        USER_GID: "1000"
+
+    command: sleep infinity
+
+    volumes:
+      - type: bind
+        source: ..
+        target: /workspace
+      - type: volume
+        source: cargo-registry-cache
+        target: /home/vscode/.cargo/registry
+      - type: volume
+        source: cargo-git-cache
+        target: /home/vscode/.cargo/git
+      - type: volume
+        source: pnpm-store-cache
+        target: /home/vscode/.local/share/pnpm/store
+
+    ports:
+      - "5173:5173"
+      - "5174:5174"
+
+    environment:
+      CARGO_HOME: /home/vscode/.cargo
+      RUSTUP_HOME: /home/vscode/.rustup
+      PNPM_HOME: /home/vscode/.local/share/pnpm
+
+    user: vscode
+    init: true
+    tmpfs:
+      - /tmp
+
+volumes:
+  cargo-registry-cache:
+  cargo-git-cache:
+  pnpm-store-cache:

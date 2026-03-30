@@ -1,0 +1,13 @@
+# MindMap POC — 本番・デプロイ用 Compose
+# Usage: docker compose up --build
+# → http://localhost:8080 で nginx が静的ファイルを配信
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "8080:80"
+    restart: unless-stopped

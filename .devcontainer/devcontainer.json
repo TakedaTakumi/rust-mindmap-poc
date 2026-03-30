@@ -1,0 +1,58 @@
+{
+  "name": "MindMap POC (Rust + WASM + Svelte 5)",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+
+  // cSpell: disable
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "fill-labs.dependi",
+        "vadimcn.vscode-lldb",
+        "svelte.svelte-vscode",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "dtsvet.vscode-wasm",
+        "eamodio.gitlens",
+        "usernamehw.errorlens",
+        "EditorConfig.EditorConfig",
+        "mhutchie.git-graph",
+        "anthropic.claude-code",
+        "streetsidesoftware.code-spell-checker",
+        "christian-kohler.path-intellisense",
+        "shardulm94.trailing-spaces"
+      ],
+      "settings": {
+        "rust-analyzer.linkedProjects": ["rust-core/Cargo.toml"],
+        "rust-analyzer.checkOnSave.command": "clippy",
+        "rust-analyzer.cargo.target": "wasm32-unknown-unknown",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[rust]": { "editor.defaultFormatter": "rust-lang.rust-analyzer" },
+        "[toml]": { "editor.defaultFormatter": "tamasfe.even-better-toml" },
+        "[svelte]": { "editor.defaultFormatter": "svelte.svelte-vscode" },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.watcherExclude": {
+          "**/target/**": true,
+          "**/node_modules/**": true
+        }
+      }
+    }
+  },
+  // cSpell: enable
+
+  "forwardPorts": [5173, 5174],
+  "portsAttributes": {
+    "5173": { "label": "Vite Dev Server", "onAutoForward": "openBrowser" },
+    "5174": { "label": "Vite HMR", "onAutoForward": "silent" }
+  },
+
+  "postCreateCommand": "if [ -f frontend/package.json ]; then cd frontend && pnpm install; fi",
+
+  "remoteUser": "vscode",
+  "shutdownAction": "stopCompose"
+}
